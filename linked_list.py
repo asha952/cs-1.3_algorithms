@@ -116,6 +116,7 @@ class LinkedList(object):
                 count.next = new_Node
                 self.size += 1
             count += 1
+            present_index = present_index.next
 
 
     def append(self, item):
