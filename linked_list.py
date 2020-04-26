@@ -118,7 +118,6 @@ class LinkedList(object):
             count += 1
             present_index = present_index.next
 
-
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         Best and worst case running time: ??? under what conditions? [TODO]"""
@@ -174,7 +173,19 @@ class LinkedList(object):
         Worst case running time: ??? under what conditions? [TODO]"""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
-        pass
+        if self.head.data == old_item:
+            self.head.data = new_item
+            return
+        if self.tail.data == old_item:
+            self.tail.data = new_item
+            return
+        node = self.head.next
+        while node:
+            if node.data == old_item:
+                node.data = new_item
+                return
+            node = node.next
+        raise ValueError('not found: {}'.format(new_item))
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
