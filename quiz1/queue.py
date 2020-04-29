@@ -66,7 +66,7 @@ class ArrayQueue(object):
 
     def is_empty(self):
         """Return True if this queue is empty, or False otherwise."""
-        # TODO: Check if empty
+        return self.length() == 0
 
     def length(self):
         """Return the number of items in this queue."""
