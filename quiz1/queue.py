@@ -77,11 +77,12 @@ class ArrayQueue(object):
         Running time: O(???) – Why? """
         self.list.append(item)
 
-
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
-        # TODO: Return front item, if any
+        if self.length() == 0:
+            return None
+        return self.list[0]
 
     def dequeue(self):
         """Remove and return the item at the front of this queue,
