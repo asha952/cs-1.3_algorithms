@@ -43,8 +43,12 @@ class LinkedStack(object):
     def pop(self):
         """Remove and return the item on the top of this stack,
         or raise ValueError if this stack is empty.
-        Running time: O(???) – Why? [TODO]"""
-        # TODO: Remove and return top item, if any
+        Running time: O(???) – Why? """
+        if self.list.tail is None:
+            raise ValueError('Nothing to pop')
+        popped_data = self.list.tail.data
+        self.list.delete(popped_data)  # delete tail
+        return popped_data
 
 
 # Implement ArrayStack below, then change the assignment at the bottom
