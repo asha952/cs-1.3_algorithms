@@ -23,7 +23,7 @@ class LinkedQueue(object):
 
     def length(self):
         """Return the number of items in this queue."""
-        return self.list.length()
+        return self.list.size
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
@@ -35,17 +35,20 @@ class LinkedQueue(object):
         or None if this queue is empty."""
         if self.is_empty():
             return None
-        return self.list.head.data
+        else:
+            return self.list.head.data
 
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
         Running time: O(???) – Why? [TO]"""
-        if self.list.size == 0:
-            raise ValueError('Nothing to pop')
-        popped_data = self.list.head.data
-        self.list.delete(popped_data)  # delete tail
-        return popped_data
+        if self.is_empty():
+            raise ValueError("Empty Stack")
+        else:
+            item = self.list.head.data
+            self.list.head = self.list.head.next
+            self.list.size -= 1
+            return item
 
 
 # Implement ArrayQueue below, then change the assignment at the bottom
@@ -80,19 +83,21 @@ class ArrayQueue(object):
     def front(self):
         """Return the item at the front of this queue without removing it,
         or None if this queue is empty."""
-        if self.length() == 0:
+        if self.is_empty():
             return None
-        return self.list[0]
+        else:
+            return self.list[0]
 
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
         Running time: O(???) – Why? [TO"""
         if self.is_empty():
-            raise ValueError('Nothing to pop')
-        head = self.list[0]
-        self.list.pop(0)
-        return head
+            raise ValueError("List Empty!")
+        else:
+            item = self.list.pop(0)
+            # self.list[0] == self.list[1]
+            return item
 
 
 # Implement LinkedQueue and ArrayQueue above, then change the assignment below
