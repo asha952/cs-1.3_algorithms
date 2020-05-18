@@ -11,18 +11,18 @@ def factorial(n):
 
 
 def factorial_iterative(n):
-    fact_orial = 1  # initialize as 1
-    for i in range(1, n + 1):
-        fact_orial *= i
-        print(i, "=", fact_orial)
-    return fact_orial
+
+    total = 1
+    for i in range(n):
+        num = n - i
+        total *= num
+    return total
 
 
 def factorial_recursive(n):
     # check if n is one of the base cases
     if n == 0 or n == 1:
         return 1
-    # check if n is an integer larger than the base cases
     elif n > 1:
         # call function recursively
         return n * factorial_recursive(n - 1)
@@ -30,7 +30,7 @@ def factorial_recursive(n):
 
 def main():
     import sys
-    args = sys.argv[1:]  # Ignore script file name
+    args = sys.argv[1:]
     if len(args) == 1:
         num = int(args[0])
         result = factorial(num)
@@ -41,4 +41,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    factorial_iterative(5)
