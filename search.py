@@ -1,88 +1,62 @@
-import string
+#!python
+
+def linear_search(array, item):
+    """return the first index of item in array or None if item is not found"""
+    # implement linear_search_iterative and linear_search_recursive below, then
+    # change this to call your implementation to verify it passes all tests
+    # return linear_search_iterative(array, item)
+    return linear_search_recursive(array, item)
 
 
-# Hint: Use these string constants to ignore capitalization and/or punctuation
-# string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
+def linear_search_iterative(array, item):
+    for index, value in enumerate(array):
+        if item == value:
+            return index  # Found
+    return None  # Not found
 
 
-def is_palindrome(text):
-    assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_recursive(text)
+def linear_search_recursive(array, item, index=0):
+    if index > len(array) - 1:
+        return None
+    if item == array[index]:
+        return index
+    else:
+        return linear_search_recursive(array, item, index + 1)
 
 
-# def is_palindrome_recursive(text, left=None, right=None):
-#     # once implemented, change is_palindrome to call is_palindrome_recursive
-#     # to verify that your iterative implementation passes all tests
-#     text_array = "".join(c.lower() for c in text if c.isalpha())
-#     half = int(len(text_array) // 2 + (len(text_array) % 2 > 0))
-#     if left == None:
-#         left = 0
-#     if right == None:
-#         right = len(text_array) - 1
-
-#     if left < half:
-#         if text_array[left] == text_array[right]:
-#             return is_palindrome_recursive(text, left+1, right-1)
-#         else:
-#             return False
-#     else:
-#         return True
-
-# def is_palindrome_iterative(text):
-#     pass
-#     # once implemented, change is_palindrome to call is_palindrome_iterative
-#     # to verify that your iterative implementation passes all tests
-#     text_array = "".join(c.lower() for c in text if c.isalpha())
-#     half = int(len(text_array) // 2 + (len(text_array) % 2 > 0))
-#     for index in range(half): #loop until halfway
-#         if text_array[index] != text_array[len(text_array) - 1 - index]:
-#             return False
-#     return True
+def binary_search(array, item):
+    return binary_search_recursive(array, item)
 
 
-def is_palindrome_iterative(text):
-    text_array = "".join(c.lower() for c in text if
-                         c.isalpha())
-    half = int(len(text_array) // 2 + (len(
-        text_array) % 2 > 0))
-    for index in range(half):
-        if text_array[index] != text_array[len(text_array) - 1 - index]:
-            return False
-    return True
+def binary_search_iterative(array, item):
+    left = 0
+    right = len(array) - 1
 
-
-def is_palindrome_recursive(text, left=None, right=None):
-    text_array = "".join(c.lower() for c in text if c.isalpha())
-    half = int(len(text_array) // 2 + (len(text_array) % 2 > 0))
-    if left is None:
-        left = 0
-    if right is None:
-        right = len(text_array) - 1
-
-    if left < half:
-        if text_array[left] == text_array[right]:
-            return is_palindrome_recursive(text, left + 1, right - 1)
+    while right >= left:
+        middle = (right + left) // 2
+        if item > array[middle]:  # Shift the left if item is greater than middle of array
+            left = middle + 1
+        elif item < array[middle]:
+            right = middle - 1
         else:
-            return False
+            return middle
+
+    return None
+
+
+def binary_search_recursive(array, item, left=None, right=None):
+    if left == None:
+        left = 0
+        right = len(array) - 1
+
+    middle = (left + right) // 2
+
+    if right < left:
+        return None
+    elif array[middle] == item:
+        return middle
+
+    if array[middle] < item:
+        return binary_search_recursive(array, item, left=middle + 1, right=right)
     else:
-        return True
-
-
-def main():
-    import sys
-    args = sys.argv[1:]  # Ignore script file name
-    if len(args) > 0:
-        for arg in args:
-            is_pal = is_palindrome(arg)
-            result = 'PASS' if is_pal else 'FAIL'
-            is_str = 'is' if is_pal else 'is not'
-            print('{}: {} {} a palindrome'.format(result, repr(arg), is_str))
-    else:
-        print('Usage: {} string1 string2 ... stringN'.format(sys.argv[0]))
-        print('  checks if each argument given is a palindrome')
-
-
-if __name__ == '__main__':
-    main()
+        return binary_search_recursive(array, item, left=left, right=middle - 1)
